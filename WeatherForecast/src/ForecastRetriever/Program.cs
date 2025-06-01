@@ -1,8 +1,7 @@
-using ForecastRetriever.Weather;
+using Database;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 
 var builder = FunctionsApplication.CreateBuilder(args);
 
@@ -15,11 +14,8 @@ builder.ConfigureFunctionsWebApplication();
 
 builder.Services.Configure<OpenWeatherApiOptions>(builder.Configuration.GetSection("OpenWeatherApi"));
 
-builder.Services.AddHttpClient<IWeatherService>((serviceProvider, client) =>
-{
-    var openWeatherApiOptions = serviceProvider.GetRequiredService<IOptions<OpenWeatherApiOptions>>().Value;
+builder.Services.AddInfrastructure(builder.Configuration);
 
-    client.BaseAddress = new Uri(openWeatherApiOptions.BaseAddress);
-});
+
 
 builder.Build().Run();

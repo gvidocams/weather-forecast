@@ -3,7 +3,8 @@
     "Values": {
         "AzureWebJobsStorage": "UseDevelopmentStorage=true",
         "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
-        "OpenWeatherApiOptions:BaseAddress": "",
-        "OpenWeatherApiOptions:ApiKey": ""
+        "OpenWeatherApi:BaseAddress": "",
+        "OpenWeatherApi:ApiKey": "",
+        "ConnectionStrings:WeatherDatabase": "Data Source=WeatherDatabase.db"
     }
 }

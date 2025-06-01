@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForecastRetriever", "src\Fo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForecastRetriever.Tests", "tests\ForecastRetriever.Tests\ForecastRetriever.Tests.csproj", "{DA5EFADB-3195-49A7-B474-54A8DF7B72C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{F4467E09-0CEF-47A4-AD84-7B184DD81E6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "src\Core\Core.csproj", "{95D100F5-2F5D-4958-98ED-5CB5B71A13C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,6 +20,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8E82E389-C96C-457B-B063-8BC164673917} = {CFBE2EAE-0EB5-43C4-B099-01B961F3AB9B}
 		{DA5EFADB-3195-49A7-B474-54A8DF7B72C6} = {B19BA044-5CAF-4D1D-8655-55FE3FD0709E}
+		{F4467E09-0CEF-47A4-AD84-7B184DD81E6E} = {CFBE2EAE-0EB5-43C4-B099-01B961F3AB9B}
+		{95D100F5-2F5D-4958-98ED-5CB5B71A13C8} = {CFBE2EAE-0EB5-43C4-B099-01B961F3AB9B}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8E82E389-C96C-457B-B063-8BC164673917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -26,5 +32,13 @@ Global
 		{DA5EFADB-3195-49A7-B474-54A8DF7B72C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA5EFADB-3195-49A7-B474-54A8DF7B72C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA5EFADB-3195-49A7-B474-54A8DF7B72C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4467E09-0CEF-47A4-AD84-7B184DD81E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4467E09-0CEF-47A4-AD84-7B184DD81E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4467E09-0CEF-47A4-AD84-7B184DD81E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4467E09-0CEF-47A4-AD84-7B184DD81E6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95D100F5-2F5D-4958-98ED-5CB5B71A13C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95D100F5-2F5D-4958-98ED-5CB5B71A13C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95D100F5-2F5D-4958-98ED-5CB5B71A13C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95D100F5-2F5D-4958-98ED-5CB5B71A13C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

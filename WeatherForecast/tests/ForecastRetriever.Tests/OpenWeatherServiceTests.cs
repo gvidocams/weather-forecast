@@ -1,5 +1,6 @@
 ﻿using System.Net;
-using ForecastRetriever.Weather;
+using Core;
+using Database;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using Shouldly;

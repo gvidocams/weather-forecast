@@ -1,4 +1,4 @@
-﻿namespace ForecastRetriever.Weather;
+﻿namespace Core;
 
 public record WeatherResult
 {
