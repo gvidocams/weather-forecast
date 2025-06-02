@@ -1,6 +1,6 @@
 ﻿using Core;
 
-namespace Database;
+namespace Infrastructure;
 
 internal class WeatherRepository(WeatherContext weatherContext) : IWeatherRepository
 {

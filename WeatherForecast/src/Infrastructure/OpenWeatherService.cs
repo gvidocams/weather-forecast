@@ -1,7 +1,7 @@
 ﻿using Core;
 using Microsoft.Extensions.Options;
 
-namespace Database;
+namespace Infrastructure;
 
 public class OpenWeatherService(HttpClient client, IOptions<OpenWeatherApiOptions> options) : IWeatherService
 {

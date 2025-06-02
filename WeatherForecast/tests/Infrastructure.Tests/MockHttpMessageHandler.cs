@@ -1,4 +1,4 @@
-﻿namespace ForecastRetriever.Tests;
+﻿namespace Infrastructure.Tests;
 
 public class MockHttpMessageHandler : HttpMessageHandler
 {

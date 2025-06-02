@@ -1,11 +1,10 @@
 ﻿using System.Net;
 using Core;
-using Database;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using Shouldly;
 
-namespace ForecastRetriever.Tests;
+namespace Infrastructure.Tests;
 
 public class OpenWeatherServiceTests
 {

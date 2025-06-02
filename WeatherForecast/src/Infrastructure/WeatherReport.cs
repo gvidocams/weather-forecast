@@ -1,4 +1,4 @@
-﻿namespace Database;
+﻿namespace Infrastructure;
 
 internal class WeatherReport
 {

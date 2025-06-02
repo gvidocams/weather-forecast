@@ -1,4 +1,4 @@
-using Database;
+using Infrastructure;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,7 +15,5 @@ builder.ConfigureFunctionsWebApplication();
 builder.Services.Configure<OpenWeatherApiOptions>(builder.Configuration.GetSection("OpenWeatherApi"));
 
 builder.Services.AddInfrastructure(builder.Configuration);
-
-
 
 builder.Build().Run();
