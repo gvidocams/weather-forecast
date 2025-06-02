@@ -1,4 +1,5 @@
 ﻿using Core;
+using Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,5 +22,6 @@ public static class DependencyInjection
             options.UseSqlite(configuration.GetConnectionString("WeatherDatabase")));
 
         services.AddScoped<IWeatherRepository, WeatherRepository>();
+        services.AddSingleton<IDateTimeWrapper, DateTimeWrapper>();
     }
 }

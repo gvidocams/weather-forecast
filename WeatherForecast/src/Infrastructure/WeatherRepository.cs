@@ -1,8 +1,9 @@
 ﻿using Core;
+using Infrastructure.Utilities;
 
 namespace Infrastructure;
 
-internal class WeatherRepository(WeatherContext weatherContext) : IWeatherRepository
+internal class WeatherRepository(WeatherContext weatherContext, IDateTimeWrapper dateTimeWrapper) : IWeatherRepository
 {
     public void SaveWeather(WeatherResult weatherResult)
     {
@@ -11,7 +12,7 @@ internal class WeatherRepository(WeatherContext weatherContext) : IWeatherReposi
             City = string.Empty,
             Report = weatherResult.WeatherResponse,
             IsSuccessful = weatherResult.IsSuccessful,
-            CreatedAtUtc = DateTime.UtcNow,
+            CreatedAtUtc = dateTimeWrapper.UtcNow,
         };
 
         weatherContext.WeatherReports.Add(weatherReport);
