@@ -19,5 +19,8 @@
       <ProjectReference Include="..\Core\Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="Infrastructure.Tests" />
+    </ItemGroup>
 
 </Project>
