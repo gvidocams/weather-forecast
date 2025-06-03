@@ -2,6 +2,6 @@
 
 public interface IWeatherRepository
 {
-    void SaveWeather(WeatherResult weatherResult);
-    List<string> GetWeatherTrackedCities();
+    Task SaveWeatherAsync(WeatherResult weatherResult);
+    Task<List<string>> GetWeatherTrackedCitiesAsync();
 }

@@ -4,7 +4,7 @@ internal class WeatherUpdater(IWeatherRepository weatherRepository, IWeatherServ
 {
     public async Task UpdateForTrackedCities()
     {
-        var cities = weatherRepository.GetWeatherTrackedCities();
+        var cities = await weatherRepository.GetWeatherTrackedCitiesAsync();
         foreach (var city in cities)
         {
             await GetWeatherAndSave(city);
@@ -14,6 +14,6 @@ internal class WeatherUpdater(IWeatherRepository weatherRepository, IWeatherServ
     private async Task GetWeatherAndSave(string city)
     {
         var weatherResult = await weatherService.GetWeatherAsync(city);
-        weatherRepository.SaveWeather(weatherResult);
+        await weatherRepository.SaveWeatherAsync(weatherResult);
     }
 }

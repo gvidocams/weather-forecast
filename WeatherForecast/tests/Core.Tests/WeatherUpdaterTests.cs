@@ -20,7 +20,7 @@ public class WeatherUpdaterTests
     public async Task UpdateForTrackedCities_MultipleCities_ShouldSaveAllWeatherData()
     {
         _weatherRepository
-            .GetWeatherTrackedCities()
+            .GetWeatherTrackedCitiesAsync()
             .Returns(["Riga", "Rome"]);
 
         var rigaWeatherResult = new WeatherResult
@@ -39,7 +39,7 @@ public class WeatherUpdaterTests
 
         await _weatherUpdater.UpdateForTrackedCities();
 
-        _weatherRepository.Received(1).SaveWeather(rigaWeatherResult);
-        _weatherRepository.Received(1).SaveWeather(romeWeatherResult);
+        await _weatherRepository.Received(1).SaveWeatherAsync(rigaWeatherResult);
+        await _weatherRepository.Received(1).SaveWeatherAsync(romeWeatherResult);
     }
 }

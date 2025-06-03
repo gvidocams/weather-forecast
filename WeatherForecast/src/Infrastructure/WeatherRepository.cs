@@ -1,11 +1,12 @@
 ﻿using Core;
 using Infrastructure.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
 internal class WeatherRepository(WeatherContext weatherContext, IDateTimeWrapper dateTimeWrapper) : IWeatherRepository
 {
-    public void SaveWeather(WeatherResult weatherResult)
+    public async Task SaveWeatherAsync(WeatherResult weatherResult)
     {
         var weatherReport = new WeatherReport
         {
@@ -15,14 +16,14 @@ internal class WeatherRepository(WeatherContext weatherContext, IDateTimeWrapper
             CreatedAtUtc = dateTimeWrapper.UtcNow,
         };
 
-        weatherContext.WeatherReports.Add(weatherReport);
-        weatherContext.SaveChanges();
+        await weatherContext.WeatherReports.AddAsync(weatherReport);
+        await weatherContext.SaveChangesAsync();
     }
 
-    public List<string> GetWeatherTrackedCities()
+    public Task<List<string>> GetWeatherTrackedCitiesAsync()
     {
         return weatherContext.Cities
             .Select(city => city.CityName)
-            .ToList();
+            .ToListAsync();
     }
 }

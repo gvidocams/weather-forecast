@@ -35,7 +35,7 @@ public class WeatherRepositoryTests
     }
 
     [Test]
-    public async Task SaveWeather_ValidWeatherResult_ShouldSaveWeatherData()
+    public async Task SaveWeatherAsync_ValidWeatherResult_ShouldSaveWeatherData()
     {
         var expectedDate = DateTime.UtcNow;
         _dateTimeWrapper.UtcNow.Returns(expectedDate);
@@ -46,7 +46,7 @@ public class WeatherRepositoryTests
             WeatherResponse = "ExampleResponse"
         };
 
-        _weatherRepository.SaveWeather(weatherResult);
+        await _weatherRepository.SaveWeatherAsync(weatherResult);
 
         var result = await _weatherContext.WeatherReports.FirstOrDefaultAsync();
         result.ShouldBeEquivalentTo(new WeatherReport
@@ -60,7 +60,7 @@ public class WeatherRepositoryTests
     }
 
     [Test]
-    public void GetWeatherTrackedCities_MultipleTrackedCities_ReturnsAllTrackedCityNames()
+    public async Task GetWeatherTrackedCitiesAsync_MultipleTrackedCities_ReturnsAllTrackedCityNames()
     {
         var trackedCities = new List<City>
         {
@@ -69,18 +69,18 @@ public class WeatherRepositoryTests
             new() { Id = 3, CityName = "Rome" },
         };
 
-        _weatherContext.Cities.AddRange(trackedCities);
-        _weatherContext.SaveChanges();
+        await _weatherContext.Cities.AddRangeAsync(trackedCities);
+        await _weatherContext.SaveChangesAsync();
 
-        var result = _weatherRepository.GetWeatherTrackedCities();
+        var result = await _weatherRepository.GetWeatherTrackedCitiesAsync();
 
         result.ShouldBe(["Riga", "London", "Rome"]);
     }
 
     [Test]
-    public void GetWeatherTrackedCities_NoTrackedCities_ReturnsEmptyList()
+    public async Task GetWeatherTrackedCitiesAsync_NoTrackedCities_ReturnsEmptyList()
     {
-        var result = _weatherRepository.GetWeatherTrackedCities();
+        var result = await _weatherRepository.GetWeatherTrackedCitiesAsync();
 
         result.ShouldBeEmpty();
     }
