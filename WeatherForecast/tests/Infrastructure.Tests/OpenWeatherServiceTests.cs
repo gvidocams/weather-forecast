@@ -70,7 +70,7 @@ public class OpenWeatherServiceTests
     }
 
     [Test]
-    public async Task GetWeatherAsync_GetWeatherInRiga_ShouldCorrectUri()
+    public async Task GetWeatherAsync_GetWeatherInRiga_ShouldCallCorrectUri()
     {
         SetupGetAsync(HttpStatusCode.OK, string.Empty);
 
