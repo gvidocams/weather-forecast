@@ -21,6 +21,8 @@ internal class WeatherRepository(WeatherContext weatherContext, IDateTimeWrapper
 
     public List<string> GetWeatherTrackedCities()
     {
-        throw new NotImplementedException();
+        return weatherContext.Cities
+            .Select(city => city.CityName)
+            .ToList();
     }
 }

@@ -58,4 +58,30 @@ public class WeatherRepositoryTests
             CreatedAtUtc = expectedDate
         });
     }
+
+    [Test]
+    public void GetWeatherTrackedCities_MultipleTrackedCities_ReturnsAllTrackedCityNames()
+    {
+        var trackedCities = new List<City>
+        {
+            new() { Id = 1, CityName = "Riga" },
+            new() { Id = 2, CityName = "London" },
+            new() { Id = 3, CityName = "Rome" },
+        };
+
+        _weatherContext.Cities.AddRange(trackedCities);
+        _weatherContext.SaveChanges();
+
+        var result = _weatherRepository.GetWeatherTrackedCities();
+
+        result.ShouldBe(["Riga", "London", "Rome"]);
+    }
+
+    [Test]
+    public void GetWeatherTrackedCities_NoTrackedCities_ReturnsEmptyList()
+    {
+        var result = _weatherRepository.GetWeatherTrackedCities();
+
+        result.ShouldBeEmpty();
+    }
 }
