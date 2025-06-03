@@ -18,4 +18,9 @@ internal class WeatherRepository(WeatherContext weatherContext, IDateTimeWrapper
         weatherContext.WeatherReports.Add(weatherReport);
         weatherContext.SaveChanges();
     }
+
+    public List<string> GetWeatherTrackedCities()
+    {
+        throw new NotImplementedException();
+    }
 }
