@@ -17,7 +17,7 @@ public class WeatherRepositoryTests
     public async Task Setup()
     {
         var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
+        await connection.OpenAsync();
 
         var options = new DbContextOptionsBuilder<WeatherContext>().UseSqlite(connection).Options;
 
