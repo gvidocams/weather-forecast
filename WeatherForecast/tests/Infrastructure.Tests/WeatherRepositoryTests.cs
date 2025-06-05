@@ -41,7 +41,7 @@ public class WeatherRepositoryTests
         _dateTimeWrapper.UtcNow.Returns(expectedDate);
 
         var trackedCity = new City { Id = 1, Name = "Riga" };
-        await _weatherContext.Cities.AddAsync(trackedCity);
+        await _weatherContext.TrackedCities.AddAsync(trackedCity);
         await _weatherContext.SaveChangesAsync();
 
         var weatherResult = new WeatherResult
@@ -74,7 +74,7 @@ public class WeatherRepositoryTests
             new() { Id = 3, Name = "Rome" },
         };
 
-        await _weatherContext.Cities.AddRangeAsync(trackedCities);
+        await _weatherContext.TrackedCities.AddRangeAsync(trackedCities);
         await _weatherContext.SaveChangesAsync();
 
         var result = await _weatherRepository.GetWeatherTrackedCitiesAsync();

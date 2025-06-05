@@ -8,7 +8,7 @@ internal class WeatherRepository(WeatherContext weatherContext, IDateTimeWrapper
 {
     public async Task SaveWeatherAsync(WeatherResult weatherResult)
     {
-        var city = await weatherContext.Cities.FirstAsync(city => city.Name == weatherResult.CityName);
+        var city = await weatherContext.TrackedCities.FirstAsync(city => city.Name == weatherResult.CityName);
 
         var weatherReport = new WeatherReport
         {
@@ -24,7 +24,7 @@ internal class WeatherRepository(WeatherContext weatherContext, IDateTimeWrapper
 
     public Task<List<string>> GetWeatherTrackedCitiesAsync()
     {
-        return weatherContext.Cities
+        return weatherContext.TrackedCities
             .Select(city => city.Name)
             .ToListAsync();
     }
