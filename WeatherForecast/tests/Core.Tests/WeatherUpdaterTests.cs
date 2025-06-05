@@ -26,14 +26,16 @@ public class WeatherUpdaterTests
         var rigaWeatherResult = new WeatherResult
         {
             IsSuccessful = false,
-            WeatherResponse = "ErrorResponseForRiga"
+            WeatherResponse = "ErrorResponseForRiga",
+            CityName = "Riga"
         };
         _weatherService.GetWeatherAsync("Riga").Returns(rigaWeatherResult);
 
         var romeWeatherResult = new WeatherResult
         {
             IsSuccessful = true,
-            WeatherResponse = "SuccessResponseForRome"
+            WeatherResponse = "SuccessResponseForRome",
+            CityName = "Rome"
         };
         _weatherService.GetWeatherAsync("Rome").Returns(romeWeatherResult);
 

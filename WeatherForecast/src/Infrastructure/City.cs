@@ -1,7 +1,8 @@
 ﻿namespace Infrastructure;
 
-public class City
+internal class City
 {
     public int Id { get; set; }
-    public required string CityName { get; set; }
+    public required string Name { get; set; }
+    public ICollection<WeatherReport> WeatherReports { get; set; }
 }

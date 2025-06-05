@@ -15,7 +15,8 @@ public class OpenWeatherService(HttpClient client, IOptions<OpenWeatherApiOption
         return new WeatherResult
         {
             IsSuccessful = response.IsSuccessStatusCode,
-            WeatherResponse = await response.Content.ReadAsStringAsync()
+            WeatherResponse = await response.Content.ReadAsStringAsync(),
+            CityName = city
         };
     }
 }

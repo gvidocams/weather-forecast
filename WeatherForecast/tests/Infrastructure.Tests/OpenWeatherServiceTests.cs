@@ -51,27 +51,33 @@ public class OpenWeatherServiceTests
         response.ShouldBeEquivalentTo(new WeatherResult
         {
             IsSuccessful = true,
-            WeatherResponse = expectedContent
+            WeatherResponse = expectedContent,
+            CityName = "Riga"
         });
     }
 
     [Test]
     public async Task GetWeatherAsync_FailureResponse_ReturnsUnsuccessfulWeatherResult()
     {
+        const string cityName = "Riga";
+
         SetupGetAsync(HttpStatusCode.BadRequest, string.Empty);
 
-        var response = await _openWeatherService.GetWeatherAsync("Riga");
+        var response = await _openWeatherService.GetWeatherAsync(cityName);
 
         response.ShouldBeEquivalentTo(new WeatherResult
         {
             IsSuccessful = false,
-            WeatherResponse = string.Empty
+            WeatherResponse = string.Empty,
+            CityName = cityName
         });
     }
 
     [Test]
     public async Task GetWeatherAsync_GetWeatherInRiga_ShouldCallCorrectUri()
     {
+        const string cityName = "Riga";
+
         SetupGetAsync(HttpStatusCode.OK, string.Empty);
 
         await _openWeatherService.GetWeatherAsync("Riga");
@@ -79,7 +85,7 @@ public class OpenWeatherServiceTests
         await _httpMessageHandler.Received(1).PublicSendAsync(
             Arg.Is<HttpRequestMessage>(request =>
                 request.Method == HttpMethod.Get &&
-                request.RequestUri!.ToString() == "https://example.com/data/2.5/weather?q=Riga&appid=TestApiKey"),
+                request.RequestUri!.ToString() == $"https://example.com/data/2.5/weather?q={cityName}&appid={ApiKey}"),
             Arg.Any<CancellationToken>());
     }
 

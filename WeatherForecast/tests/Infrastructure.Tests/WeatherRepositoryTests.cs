@@ -40,10 +40,15 @@ public class WeatherRepositoryTests
         var expectedDate = DateTime.UtcNow;
         _dateTimeWrapper.UtcNow.Returns(expectedDate);
 
+        var trackedCity = new City { Id = 1, Name = "Riga" };
+        await _weatherContext.Cities.AddAsync(trackedCity);
+        await _weatherContext.SaveChangesAsync();
+
         var weatherResult = new WeatherResult
         {
             IsSuccessful = true,
-            WeatherResponse = "ExampleResponse"
+            WeatherResponse = "ExampleResponse",
+            CityName = "Riga"
         };
 
         await _weatherRepository.SaveWeatherAsync(weatherResult);
@@ -54,7 +59,7 @@ public class WeatherRepositoryTests
             Id = 1,
             IsSuccessful = true,
             Report = "ExampleResponse",
-            City = string.Empty,
+            City = trackedCity,
             CreatedAtUtc = expectedDate
         });
     }
@@ -64,9 +69,9 @@ public class WeatherRepositoryTests
     {
         var trackedCities = new List<City>
         {
-            new() { Id = 1, CityName = "Riga" },
-            new() { Id = 2, CityName = "London" },
-            new() { Id = 3, CityName = "Rome" },
+            new() { Id = 1, Name = "Riga" },
+            new() { Id = 2, Name = "London" },
+            new() { Id = 3, Name = "Rome" },
         };
 
         await _weatherContext.Cities.AddRangeAsync(trackedCities);
