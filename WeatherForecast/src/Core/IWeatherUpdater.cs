@@ -1,6 +1,6 @@
 ﻿namespace Core;
 
-internal interface IWeatherUpdater
+public interface IWeatherUpdater
 {
     Task UpdateForTrackedCities();
 }
