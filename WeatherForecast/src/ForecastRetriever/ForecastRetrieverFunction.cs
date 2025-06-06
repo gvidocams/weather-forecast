@@ -9,13 +9,18 @@ public class ForecastRetrieverFunction(IWeatherUpdater weatherUpdater, ILogger<F
     [Function("ForecastRetrieverFunction")]
     public async Task Run([TimerTrigger("0 */1 * * * *")] TimerInfo myTimer)
     {
-        logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+        logger.LogInformation("{FunctionName} started executing at: {ExecutionStartTime}",
+            nameof(ForecastRetrieverFunction), DateTime.Now);
 
         await weatherUpdater.UpdateForTrackedCities();
 
+        logger.LogInformation("{FunctionName} finished executing at: {ExecutionEndTime}",
+            nameof(ForecastRetrieverFunction), DateTime.Now);
+
         if (myTimer.ScheduleStatus is not null)
         {
-            logger.LogInformation($"Next timer schedule at: {myTimer.ScheduleStatus.Next}");
+            logger.LogInformation("Next {FunctionName} execution scheduled at: {NextExecutionStartTime}",
+                nameof(ForecastRetrieverFunction), myTimer.ScheduleStatus.Next);
         }
     }
 }
