@@ -1,4 +1,6 @@
 ﻿using Core;
+using Infrastructure.OpenWeatherApi;
+using Infrastructure.Persistance;
 using Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

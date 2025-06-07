@@ -1,4 +1,4 @@
-﻿namespace Infrastructure;
+﻿namespace Infrastructure.Persistance;
 
 internal class WeatherReport
 {

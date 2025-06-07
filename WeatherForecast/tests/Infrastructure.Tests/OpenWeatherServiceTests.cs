@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Core;
+using Infrastructure.OpenWeatherApi;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using Shouldly;

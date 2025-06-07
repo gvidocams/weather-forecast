@@ -1,4 +1,5 @@
 ﻿using Core;
+using Infrastructure.Persistance;
 using Infrastructure.Utilities;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,4 @@
-﻿namespace Infrastructure;
+﻿namespace Infrastructure.OpenWeatherApi;
 
 public class OpenWeatherApiOptions
 {

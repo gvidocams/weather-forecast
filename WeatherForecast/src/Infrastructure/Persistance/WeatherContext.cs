@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure;
+namespace Infrastructure.Persistance;
 
 internal class WeatherContext(DbContextOptions<WeatherContext> options) : DbContext(options)
 {
