@@ -11,7 +11,7 @@ builder.ConfigureFunctionsWebApplication();
 
 builder.Services.Configure<OpenWeatherApiOptions>(builder.Configuration.GetSection("OpenWeatherApi"));
 
-builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddCoreServices();
+builder.Services.AddInfrastructureServicesForUpdatingWeather(builder.Configuration);
+builder.Services.AddCoreServicesForUpdatingWeather();
 
 await builder.Build().RunAsync();

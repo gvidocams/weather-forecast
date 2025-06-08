@@ -1,11 +1,12 @@
 ﻿using Core;
+using Core.RetrieveWeather;
 using Core.UpdateWeather;
 using Infrastructure.Persistance.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistance;
 
-internal class WeatherRepository(WeatherContext weatherContext) : IWeatherRepository
+internal class WeatherRepository(WeatherContext weatherContext) : IWeatherRepository, IWeatherReadRepository
 {
     public async Task SaveWeatherAsync(WeatherResult weatherResult)
     {
@@ -29,4 +30,14 @@ internal class WeatherRepository(WeatherContext weatherContext) : IWeatherReposi
             .Select(city => city.Name)
             .ToListAsync();
     }
+
+    public Task<List<WeatherUpdateLog>> GetWeatherUpdateLogs() =>
+        weatherContext.WeatherReports
+            .Select(weatherReport => new WeatherUpdateLog
+            {
+                IsUpdateSuccessful = weatherReport.IsSuccessful,
+                City = weatherReport.City.Name,
+                UpdateDateUtc = weatherReport.CreatedAtUtc,
+            })
+            .ToListAsync();
 }

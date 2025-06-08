@@ -1,4 +1,5 @@
-﻿using Core.UpdateWeather;
+﻿using Core.RetrieveWeather;
+using Core.UpdateWeather;
 using Infrastructure.OpenWeatherApi;
 using Infrastructure.Persistance;
 using Infrastructure.Utilities;
@@ -11,7 +12,7 @@ namespace Infrastructure;
 
 public static class DependencyInjection
 {
-    public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+    public static void AddInfrastructureServicesForUpdatingWeather(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddHttpClient<IWeatherService, OpenWeatherService>((serviceProvider, client) =>
         {
@@ -20,10 +21,20 @@ public static class DependencyInjection
             client.BaseAddress = new Uri(openWeatherApiOptions.BaseAddress);
         });
 
-        services.AddDbContext<WeatherContext>(options =>
-            options.UseSqlite(configuration.GetConnectionString("WeatherDatabase")));
+        AddCommonInfrastructureServices(services, configuration);
 
         services.AddScoped<IWeatherRepository, WeatherRepository>();
         services.AddSingleton<IDateTimeWrapper, DateTimeWrapper>();
     }
+
+    public static void AddInfrastructureServicesForRetrievingWeather(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<IWeatherReadRepository, WeatherRepository>();
+
+        AddCommonInfrastructureServices(services, configuration);
+    }
+
+    private static void AddCommonInfrastructureServices(this IServiceCollection services, IConfiguration configuration) =>
+        services.AddDbContext<WeatherContext>(options =>
+            options.UseSqlite(configuration.GetConnectionString("WeatherDatabase")));
 }
