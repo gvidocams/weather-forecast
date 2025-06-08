@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Core.UpdateWeather;
 using Infrastructure.OpenWeatherApi;
 using Infrastructure.Persistance;
 using Infrastructure.Utilities;

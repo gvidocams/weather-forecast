@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Core.UpdateWeather;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Core;
 

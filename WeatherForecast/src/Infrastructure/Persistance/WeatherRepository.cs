@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.UpdateWeather;
 using Infrastructure.Persistance.Entities;
 using Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;

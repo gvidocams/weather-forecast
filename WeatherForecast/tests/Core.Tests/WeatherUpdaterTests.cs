@@ -1,4 +1,5 @@
-﻿using NSubstitute;
+﻿using Core.UpdateWeather;
+using NSubstitute;
 
 namespace Core.Tests;
 

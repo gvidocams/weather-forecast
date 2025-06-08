@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.UpdateWeather;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.OpenWeatherApi;
