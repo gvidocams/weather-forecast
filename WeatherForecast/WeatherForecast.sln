@@ -4,7 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CFBE2EAE-0EB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B19BA044-5CAF-4D1D-8655-55FE3FD0709E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForecastRetriever", "src\ForecastRetriever\ForecastRetriever.csproj", "{8E82E389-C96C-457B-B063-8BC164673917}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherUpdater", "src\WeatherUpdater\WeatherUpdater.csproj", "{8E82E389-C96C-457B-B063-8BC164673917}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Tests", "tests\Infrastructure.Tests\Infrastructure.Tests.csproj", "{DA5EFADB-3195-49A7-B474-54A8DF7B72C6}"
 EndProject
