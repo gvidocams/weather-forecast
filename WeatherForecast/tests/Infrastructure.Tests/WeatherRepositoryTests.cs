@@ -13,7 +13,6 @@ public class WeatherRepositoryTests
 {
     private WeatherRepository _weatherRepository;
     private WeatherContext _weatherContext;
-    private IDateTimeWrapper _dateTimeWrapper;
 
     [SetUp]
     public async Task Setup()
@@ -26,8 +25,7 @@ public class WeatherRepositoryTests
         _weatherContext = new WeatherContext(options);
         await _weatherContext.Database.EnsureCreatedAsync();
 
-        _dateTimeWrapper = Substitute.For<IDateTimeWrapper>();
-        _weatherRepository = new WeatherRepository(_weatherContext, _dateTimeWrapper);
+        _weatherRepository = new WeatherRepository(_weatherContext);
     }
 
     [TearDown]
@@ -40,8 +38,6 @@ public class WeatherRepositoryTests
     public async Task SaveWeatherAsync_ValidWeatherResult_ShouldSaveWeatherData()
     {
         var expectedDate = DateTime.UtcNow;
-        _dateTimeWrapper.UtcNow.Returns(expectedDate);
-
         var trackedCity = new CityEntity { Id = 1, Name = "Riga" };
         await _weatherContext.TrackedCities.AddAsync(trackedCity);
         await _weatherContext.SaveChangesAsync();
@@ -50,7 +46,8 @@ public class WeatherRepositoryTests
         {
             IsSuccessful = true,
             WeatherResponse = "ExampleResponse",
-            CityName = "Riga"
+            CityName = "Riga",
+            CreatedAtUtc = expectedDate,
         };
 
         await _weatherRepository.SaveWeatherAsync(weatherResult);

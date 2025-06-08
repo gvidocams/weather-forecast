@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using Core;
 using Infrastructure.OpenWeatherApi;
+using Infrastructure.Utilities;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using Shouldly;
@@ -14,6 +15,7 @@ public class OpenWeatherServiceTests
     private OpenWeatherService _openWeatherService;
     private MockHttpMessageHandler _httpMessageHandler;
     private HttpClient _httpClient;
+    private IDateTimeWrapper _dateTimeWrapper;
 
     [SetUp]
     public void Setup()
@@ -29,8 +31,9 @@ public class OpenWeatherServiceTests
         {
             BaseAddress = new Uri("https://example.com")
         };
+        _dateTimeWrapper = Substitute.For<IDateTimeWrapper>();
 
-        _openWeatherService = new OpenWeatherService(_httpClient, options);
+        _openWeatherService = new OpenWeatherService(_httpClient, _dateTimeWrapper, options);
     }
 
     [TearDown]
@@ -46,6 +49,9 @@ public class OpenWeatherServiceTests
         const string expectedContent = "TestContent";
 
         SetupGetAsync(HttpStatusCode.OK, expectedContent);
+        
+        var expectedCreationDate = DateTime.UtcNow;
+        _dateTimeWrapper.UtcNow.Returns(expectedCreationDate);
 
         var response = await _openWeatherService.GetWeatherAsync("Riga");
 
@@ -53,7 +59,8 @@ public class OpenWeatherServiceTests
         {
             IsSuccessful = true,
             WeatherResponse = expectedContent,
-            CityName = "Riga"
+            CityName = "Riga",
+            CreatedAtUtc = expectedCreationDate,
         });
     }
 
@@ -63,6 +70,9 @@ public class OpenWeatherServiceTests
         const string cityName = "Riga";
 
         SetupGetAsync(HttpStatusCode.BadRequest, string.Empty);
+        
+        var expectedCreationDate = DateTime.UtcNow;
+        _dateTimeWrapper.UtcNow.Returns(expectedCreationDate);
 
         var response = await _openWeatherService.GetWeatherAsync(cityName);
 
@@ -70,7 +80,8 @@ public class OpenWeatherServiceTests
         {
             IsSuccessful = false,
             WeatherResponse = string.Empty,
-            CityName = cityName
+            CityName = cityName,
+            CreatedAtUtc = expectedCreationDate,
         });
     }
 

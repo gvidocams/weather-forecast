@@ -1,12 +1,11 @@
 ﻿using Core;
 using Core.UpdateWeather;
 using Infrastructure.Persistance.Entities;
-using Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistance;
 
-internal class WeatherRepository(WeatherContext weatherContext, IDateTimeWrapper dateTimeWrapper) : IWeatherRepository
+internal class WeatherRepository(WeatherContext weatherContext) : IWeatherRepository
 {
     public async Task SaveWeatherAsync(WeatherResult weatherResult)
     {
@@ -17,7 +16,7 @@ internal class WeatherRepository(WeatherContext weatherContext, IDateTimeWrapper
             City = city,
             Report = weatherResult.WeatherResponse,
             IsSuccessful = weatherResult.IsSuccessful,
-            CreatedAtUtc = dateTimeWrapper.UtcNow,
+            CreatedAtUtc = weatherResult.CreatedAtUtc,
         };
 
         await weatherContext.WeatherReports.AddAsync(weatherReport);

@@ -28,7 +28,8 @@ public class WeatherUpdaterTests
         {
             IsSuccessful = false,
             WeatherResponse = "ErrorResponseForRiga",
-            CityName = "Riga"
+            CityName = "Riga",
+            CreatedAtUtc = DateTime.UtcNow
         };
         _weatherService.GetWeatherAsync("Riga").Returns(rigaWeatherResult);
 
@@ -36,7 +37,8 @@ public class WeatherUpdaterTests
         {
             IsSuccessful = true,
             WeatherResponse = "SuccessResponseForRome",
-            CityName = "Rome"
+            CityName = "Rome",
+            CreatedAtUtc = DateTime.UtcNow
         };
         _weatherService.GetWeatherAsync("Rome").Returns(romeWeatherResult);
 
