@@ -40,4 +40,21 @@ internal class WeatherRepository(WeatherContext weatherContext) : IWeatherReposi
                 UpdateDateUtc = weatherReport.CreatedAtUtc,
             })
             .ToListAsync();
+
+    public Task<List<WeatherUpdate>> GetWeatherUpdates(DateTime? date)
+    {
+        return weatherContext.WeatherReports
+            .Where(report => report.IsSuccessful)
+            .GroupBy(report => new { report.City.Name, report.City.Id })
+            .Select(group => new WeatherUpdate
+            {
+                City = group.Key.Name,
+                CreatedOnUtc = group.Where(report => !date.HasValue || report.CreatedAtUtc <= date.Value)
+                    .OrderByDescending(report => report.CreatedAtUtc)
+                    .First().CreatedAtUtc,
+                WeatherReport = group.Where(report => !date.HasValue || report.CreatedAtUtc <= date.Value)
+                    .OrderByDescending(report => report.CreatedAtUtc)
+                    .First().Report
+            }).ToListAsync();
+    }
 }

@@ -9,8 +9,12 @@ public class WeatherController(IWeatherReaderService weatherReaderService) : Con
 {
     [Route("retrieval-logs")]
     [HttpGet]
-    public IActionResult GetRetrievalLogs()
+    public async Task<IActionResult> GetRetrievalLogs() => Ok(await weatherReaderService.GetWeatherUpdateLogs());
+
+    [Route("updates")]
+    [HttpGet]
+    public async Task<IActionResult> GetWeatherUpdates([FromQuery] DateTime? date = null)
     {
-        return Ok(weatherReaderService.GetWeatherUpdateLogs());
+        return Ok(await weatherReaderService.GetWeatherUpdates(date));
     }
 }

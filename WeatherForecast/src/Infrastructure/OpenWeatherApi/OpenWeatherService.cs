@@ -11,7 +11,7 @@ public class OpenWeatherService(HttpClient client, IDateTimeWrapper dateTimeWrap
 
     public async Task<WeatherResult> GetWeatherAsync(string city)
     {
-        var response = await client.GetAsync($"/data/2.5/weather?q={city}&appid={_openWeatherApiOptions.ApiKey}");
+        var response = await client.GetAsync($"/data/2.5/weather?q={city}&appid={_openWeatherApiOptions.ApiKey}&units=metric");
 
         return new WeatherResult
         {

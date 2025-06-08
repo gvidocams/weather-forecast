@@ -1,35 +1,76 @@
-import {WeatherLog} from "../types/WeatherLog";
+import React, { useState, useEffect } from 'react';
+import { WeatherLogApiResponse } from '../types/WeatherLogApiResponse';
 
+const WeatherLogList: React.FC = () => {
+    const [weatherLogs, setWeatherLogs] = useState<WeatherLogApiResponse[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
-const WeatherLogList = () => {
-    const weatherLogs: WeatherLog[] = [
-        { retrievalDate: "2024-03-20", city: "New York", retrievalStatus: "Success" },
-        { retrievalDate: "2024-03-21", city: "Los Angeles", retrievalStatus: "Success" },
-        { retrievalDate: "2024-03-22", city: "Chicago", retrievalStatus: "Failed" },
-        { retrievalDate: "2024-03-23", city: "Houston", retrievalStatus: "Success" },
-        { retrievalDate: "2024-03-24", city: "Phoenix", retrievalStatus: "Success" }
-    ]
+    useEffect(() => {
+        const fetchWeatherLogs = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch('http://localhost:5218/api/weather/retrieval-logs');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const apiData: WeatherLogApiResponse[] = await response.json();
+                setWeatherLogs(apiData);
+                setError(null);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'An error occurred');
+                console.error('Error fetching weather logs:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchWeatherLogs();
+    }, []);
+
+    if (loading) {
+        return <div>Loading weather logs...</div>;
+    }
+
+    if (error) {
+        return (
+            <div>
+                <p>Error loading weather logs: {error}</p>
+                <button onClick={() => window.location.reload()}>Retry</button>
+            </div>
+        );
+    }
+
+    if (weatherLogs.length === 0) {
+        return <div>No weather logs found.</div>;
+    }
 
     return (
-        <table>
-            <thead>
-            <tr>
-                <th>Retrieval date</th>
-                <th>City</th>
-                <th>Retrieval status</th>
-            </tr>
-            </thead>
-            <tbody>
-            {weatherLogs.map(weatherLog => (
+            <table>
+                <thead>
                 <tr>
-                    <td>{weatherLog.retrievalDate}</td>
-                    <td>{weatherLog.city}</td>
-                    <td>{weatherLog.retrievalStatus}</td>
+                    <th>Update Date</th>
+                    <th>City</th>
+                    <th>Update Status</th>
                 </tr>
-            ))}
-            </tbody>
-        </table>
-    )
+                </thead>
+                <tbody>
+                {weatherLogs.map((weatherLog, index) => (
+                    <tr key={`${weatherLog.city}-${weatherLog.updateDateUtc}-${index}`}>
+                        <td>{new Date(weatherLog.updateDateUtc).toLocaleString()}</td>
+                        <td>{weatherLog.city}</td>
+                        <td style={{
+                            color: weatherLog.isUpdateSuccessful ? 'green' : 'red'
+                        }}>
+                            {weatherLog.isUpdateSuccessful ? 'Success' : 'Failed'}
+                        </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+    );
 };
 
 export default WeatherLogList;
