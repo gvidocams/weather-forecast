@@ -1,4 +1,5 @@
 ﻿using Core;
+using Infrastructure.Persistance.Entities;
 using Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +11,7 @@ internal class WeatherRepository(WeatherContext weatherContext, IDateTimeWrapper
     {
         var city = await weatherContext.TrackedCities.FirstAsync(city => city.Name == weatherResult.CityName);
 
-        var weatherReport = new WeatherReport
+        var weatherReport = new WeatherReportEntity
         {
             City = city,
             Report = weatherResult.WeatherResponse,

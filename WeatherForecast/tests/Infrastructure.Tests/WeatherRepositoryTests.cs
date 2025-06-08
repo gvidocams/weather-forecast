@@ -1,5 +1,6 @@
 ﻿using Core;
 using Infrastructure.Persistance;
+using Infrastructure.Persistance.Entities;
 using Infrastructure.Utilities;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -41,7 +42,7 @@ public class WeatherRepositoryTests
         var expectedDate = DateTime.UtcNow;
         _dateTimeWrapper.UtcNow.Returns(expectedDate);
 
-        var trackedCity = new City { Id = 1, Name = "Riga" };
+        var trackedCity = new CityEntity { Id = 1, Name = "Riga" };
         await _weatherContext.TrackedCities.AddAsync(trackedCity);
         await _weatherContext.SaveChangesAsync();
 
@@ -55,7 +56,7 @@ public class WeatherRepositoryTests
         await _weatherRepository.SaveWeatherAsync(weatherResult);
 
         var result = await _weatherContext.WeatherReports.FirstOrDefaultAsync();
-        result.ShouldBeEquivalentTo(new WeatherReport
+        result.ShouldBeEquivalentTo(new WeatherReportEntity
         {
             Id = 1,
             IsSuccessful = true,
@@ -68,7 +69,7 @@ public class WeatherRepositoryTests
     [Test]
     public async Task GetWeatherTrackedCitiesAsync_MultipleTrackedCities_ReturnsAllTrackedCityNames()
     {
-        var trackedCities = new List<City>
+        var trackedCities = new List<CityEntity>
         {
             new() { Id = 1, Name = "Riga" },
             new() { Id = 2, Name = "London" },
